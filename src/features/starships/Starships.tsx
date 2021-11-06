@@ -1,17 +1,9 @@
 import React from 'react';
 import useStarships from './useStarships';
-import styled from 'styled-components';
 import Button, { Variant } from '../../components/Button/Button';
 import ListContainer from '../../components/ListContainer/ListContainer';
 import StarshipCard from '../../components/StarshipCard/StarshipCard';
-
-const PaginationContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: 30px auto;
-  width: 200px;
-`
+import Pagination from '../../components/Pagination/Pagination';
 
 function Starship(): React.ReactElement {
   const {
@@ -40,22 +32,12 @@ function Starship(): React.ReactElement {
           ))
         ) : 'No starships found!'}
       </ListContainer>
-      <PaginationContainer>
-        <Button
-          variant={Variant.secondary}
-          disabled={!previousStarships}
-          onClick={() => dispatchGetStarshipsByPage(previousStarships)}
-        >
-          Previous Page
-        </Button>
-        <Button
-          variant={Variant.secondary}
-          disabled={!nextStarships}
-          onClick={() => dispatchGetStarshipsByPage(nextStarships)}
-        >
-          Next Page
-        </Button>
-      </PaginationContainer>
+      <Pagination
+        isPreviousDisabled={!previousStarships}
+        onPreviousClick={() => dispatchGetStarshipsByPage(previousStarships)}
+        isNextDisabled={!nextStarships}
+        onNextClick={() => dispatchGetStarshipsByPage(nextStarships)}
+      />
     </>
   );
 }
