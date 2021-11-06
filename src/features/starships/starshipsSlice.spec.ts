@@ -1,34 +1,60 @@
-import counterReducer, {
-  CounterState,
-  increment,
-  decrement,
-  incrementByAmount,
+import starshipsReducer, {
+  StarshipsState,
+  getStarshipsByPage,
 } from './starshipsSlice';
 
-xdescribe('counter reducer', () => {
-  const initialState: CounterState = {
-    value: 3,
-    status: 'idle',
+const mockStarship = {
+  name: 'Sentinel-class landing craft',
+  manufacturer: 'Sienar Fleet Systems, Cyngus Spaceworks',
+  hyperdrive_rating: '4.5',
+  passengers: '75',
+};
+
+describe('favoriteStarships reducer', () => {
+  const initialState: StarshipsState = {
+    data: {
+      count: 0,
+      results: [
+        mockStarship
+      ],
+    },
+    status: 'idle' as const,
   };
+
   it('should handle initial state', () => {
-    expect(counterReducer(undefined, { type: 'unknown' })).toEqual({
-      value: 0,
-      status: 'idle',
+    expect(starshipsReducer(undefined, { type: 'unknown' })).toEqual({
+      data: {
+        count: 0,
+        results: [],
+      },
+      status: 'idle' as const,
     });
   });
 
-  it('should handle increment', () => {
-    const actual = counterReducer(initialState, increment());
-    expect(actual.value).toEqual(4);
+  it('should handle getStarshipsByPage.rejected', () => {
+    const actual = starshipsReducer(initialState, getStarshipsByPage.rejected);
+
+    expect(actual.status).toEqual('failed');
   });
 
-  it('should handle decrement', () => {
-    const actual = counterReducer(initialState, decrement());
-    expect(actual.value).toEqual(2);
+  it('should handle getStarshipsByPage.pending', () => {
+    const actual = starshipsReducer(initialState, getStarshipsByPage.pending);
+
+    expect(actual.status).toEqual('loading');
   });
 
-  it('should handle incrementByAmount', () => {
-    const actual = counterReducer(initialState, incrementByAmount(2));
-    expect(actual.value).toEqual(5);
+  it('should handle getStarshipsByPage.fulfilled', () => {
+    const action = {
+      type: getStarshipsByPage.fulfilled.type,
+      payload: {
+        count: 0,
+        results: [
+          mockStarship
+        ],
+      }
+    }
+    const actual = starshipsReducer(initialState, action);
+
+    expect(actual.data.results).toEqual(expect.arrayContaining([mockStarship]));
   });
 });
