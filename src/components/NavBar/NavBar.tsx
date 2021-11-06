@@ -7,7 +7,6 @@ const Nav = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px;
 `;
 
 export default function NavBar(): React.ReactElement {

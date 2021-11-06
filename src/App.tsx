@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import NavBar from './components/NavBar/NavBar';
 import Container from './components/Container/Container';
 import Starships from './features/starships/Starships'
