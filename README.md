@@ -1,3 +1,9 @@
+# Install NPM dependencies
+yarn
+
+# Run the app
+yarn start
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts
