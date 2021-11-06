@@ -3,6 +3,8 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {
   getStarships,
   selectStarships,
+  selectStarshipsLoading,
+  selectStarshipsError,
 } from './starshipsSlice';
 import styled from 'styled-components';
 import emptyHeartIcon from '../../assets/icons/empty_heart.svg';
@@ -34,7 +36,7 @@ const CardImage = styled.div`
   position: relative;
 `
 
-const FavouriteIcon = styled.div`
+const FavoriteIcon = styled.div`
   position: absolute;
   top: 10px;
   right: 10px;
@@ -49,15 +51,25 @@ const FavouriteIcon = styled.div`
 
 function Starship(): React.ReactElement {
   const starships = useAppSelector(selectStarships);
+  const isLoadingStarships = useAppSelector(selectStarshipsLoading);
+  const isErrorStarships = useAppSelector(selectStarshipsError);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     void dispatch(getStarships());
   }, [])
 
+  if (isLoadingStarships) {
+    return <div>Loading...</div>
+  }
+
+  if (isErrorStarships) {
+    return <div>Error fetching starships!</div>
+  }
+
   return (
     <ListContainer>
-      {starships?.length > 0 && starships.map(starship => (
+      {starships?.length > 0 ? starships.map(starship => (
         <Card>
           <CardInfo>
             <h3>{starship.name}</h3>
@@ -67,12 +79,12 @@ function Starship(): React.ReactElement {
           </CardInfo>
           <CardImage>
             <img src='/images/starship.png' />
-            <FavouriteIcon>
+            <FavoriteIcon>
               <img src={emptyHeartIcon} />
-            </FavouriteIcon>
+            </FavoriteIcon>
           </CardImage>
         </Card>
-      ))}
+      )) : 'No starships found!'}
     </ListContainer>
   );
 }

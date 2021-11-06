@@ -33,6 +33,9 @@ export const starshipsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getStarships.rejected, (state) => {
+        state.status = 'failed';
+      })
       .addCase(getStarships.pending, (state) => {
         state.status = 'loading';
       })
@@ -44,5 +47,7 @@ export const starshipsSlice = createSlice({
 });
 
 export const selectStarships = (state: RootState) => state.starships.data;
+export const selectStarshipsLoading = (state: RootState) => state.starships.status === 'loading';
+export const selectStarshipsError = (state: RootState) => state.starships.status === 'failed';
 
 export default starshipsSlice.reducer;
