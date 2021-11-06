@@ -6,7 +6,7 @@ import {
 import ListContainer from '../../components/ListContainer/ListContainer';
 import StarshipCard, { Variant } from '../../components/StarshipCard/StarshipCard';
 
-function FavoriteStarships(): React.ReactElement {
+export default function FavoriteStarships(): React.ReactElement {
   const favoriteStarships = useAppSelector(selectFavoriteStarships);
 
   return (
@@ -21,5 +21,3 @@ function FavoriteStarships(): React.ReactElement {
     </>
   );
 }
-
-export default FavoriteStarships;

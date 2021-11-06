@@ -5,7 +5,7 @@ import ListContainer from '../../components/ListContainer/ListContainer';
 import StarshipCard from '../../components/StarshipCard/StarshipCard';
 import Pagination from '../../components/Pagination/Pagination';
 
-function Starship(): React.ReactElement {
+export default function Starship(): React.ReactElement {
   const {
     starships,
     isLoadingStarships,
@@ -41,5 +41,3 @@ function Starship(): React.ReactElement {
     </>
   );
 }
-
-export default Starship;

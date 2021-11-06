@@ -3,7 +3,7 @@ import NavBar from './components/NavBar/NavBar';
 import Container from './components/Container/Container';
 import Starships from './features/starships/Starships'
 
-function App(): React.ReactElement {
+export default function App(): React.ReactElement {
   return (
     <>
       <NavBar />
@@ -14,5 +14,3 @@ function App(): React.ReactElement {
     </>
   );
 }
-
-export default App;
