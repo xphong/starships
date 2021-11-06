@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import starshipsReducer from '../features/starships/starshipsSlice';
+import favoriteStarshipsReducer from '../features/favoriteStarships/favoriteStarshipsSlice';
 
 export const store = configureStore({
   reducer: {
     starships: starshipsReducer,
+    favoriteStarships: favoriteStarshipsReducer,
   },
 });
 
