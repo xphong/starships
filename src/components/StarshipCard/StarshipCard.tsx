@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import styled from 'styled-components';
 import Card from '../Card/Card';
 import emptyHeartIcon from '../../assets/icons/empty_heart.svg';
 import fullHeartIcon from '../../assets/icons/full_heart.svg';
 import { Starship } from '../../features/starships/starshipsSlice';
+import { FavoriteStarship } from '../../features/favoriteStarships/favoriteStarshipsSlice'
 import {
   addFavoriteStarship,
   removeFavoriteStarship,
   selectFavoriteStarships,
+  updateFavoriteStarshipNote,
 } from '../../features/favoriteStarships/favoriteStarshipsSlice';
+import useDebounce from '../../hooks/useDebounce'
 
 export enum Variant {
   primary = 'primary',
@@ -17,7 +20,7 @@ export enum Variant {
 };
 
 interface StarshipCardProps {
-  starship: Starship;
+  starship: FavoriteStarship;
   variant?: Variant;
 };
 
@@ -67,6 +70,7 @@ const NotesTextbox = styled.textarea`
 
 export default function StarshipCard({ starship, variant = Variant.primary }: StarshipCardProps): React.ReactElement {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const notesRef = useRef<HTMLTextAreaElement>(null);
   const favoriteStarships = useAppSelector(selectFavoriteStarships);
   const dispatch = useAppDispatch();
 
@@ -85,6 +89,18 @@ export default function StarshipCard({ starship, variant = Variant.primary }: St
 
     setIsFavorite(!isFavorite);
   }
+
+  const handleNotesChange = useDebounce(
+    (starship: Starship): void => {
+      const starshipWithNote: FavoriteStarship = {
+        ...starship,
+        note: notesRef.current?.value,
+      };
+
+      dispatch(updateFavoriteStarshipNote(starshipWithNote));
+    },
+    500
+  );
 
   return (
     <Card>
@@ -106,7 +122,14 @@ export default function StarshipCard({ starship, variant = Variant.primary }: St
           </FavoriteIcon>
         </StarshipCardImage>
       </StarshipCardContainer>
-      {variant === Variant.favorite && <NotesTextbox placeholder='Add text' />}
+      {variant === Variant.favorite && (
+        <NotesTextbox
+          ref={notesRef}
+          placeholder='Add text'
+          defaultValue={starship.note}
+          onChange={() => handleNotesChange(starship)}
+        />
+      )}
     </Card>
   );
 }

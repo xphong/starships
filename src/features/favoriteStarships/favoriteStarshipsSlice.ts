@@ -37,7 +37,7 @@ export const starshipsSlice = createSlice({
   },
 });
 
-export const { addFavoriteStarship, removeFavoriteStarship } = starshipsSlice.actions;
+export const { addFavoriteStarship, removeFavoriteStarship, updateFavoriteStarshipNote } = starshipsSlice.actions;
 
 export const selectFavoriteStarships = (state: RootState) => state.favoriteStarships.data;
 
