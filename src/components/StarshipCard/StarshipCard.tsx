@@ -15,9 +15,15 @@ interface StarshipCardProps {
   starship: Starship
 };
 
+const StarshipCardContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
 const StarshipCardInfo = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
 `;
 
 const StarshipCardImage = styled.div`
@@ -38,6 +44,21 @@ const FavoriteIcon = styled.div`
   cursor: pointer;
 `;
 
+const NotesTextbox = styled.textarea`
+  border: 1px solid #D9D9D9;
+  box-sizing: border-box;
+  border-radius: 10px;
+  cursor: text;
+  margin-top: 10px;
+  resize: none;
+  padding: 10px;
+  font-family: Helvetica;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 21px;
+`
+
 export default function StarshipCard({ starship }: StarshipCardProps): React.ReactElement {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const favoriteStarships = useAppSelector(selectFavoriteStarships);
@@ -56,27 +77,30 @@ export default function StarshipCard({ starship }: StarshipCardProps): React.Rea
       dispatch(addFavoriteStarship(starship));
     }
 
-    setIsFavorite(!isFavorite)
+    setIsFavorite(!isFavorite);
   }
 
   return (
     <Card>
-      <StarshipCardInfo>
-        <h3>{starship.name}</h3>
-        <span>{starship.manufacturer}</span>
-        <div>{starship.hyperdrive_rating}</div>
-        <span>{starship.passengers}</span>
-      </StarshipCardInfo>
-      <StarshipCardImage>
-        <img src='/images/starship.png' />
-        <FavoriteIcon onClick={handleFavoriteClick}>
-          {isFavorite ? (
-            <img src={fullHeartIcon} />
-          ) : (
-            <img src={emptyHeartIcon} />
-          )}
-        </FavoriteIcon>
-      </StarshipCardImage>
+      <StarshipCardContainer>
+        <StarshipCardInfo>
+          <h3>{starship.name}</h3>
+          <span>{starship.manufacturer}</span>
+          <div>{starship.hyperdrive_rating}</div>
+          <span>{starship.passengers}</span>
+        </StarshipCardInfo>
+        <StarshipCardImage>
+          <img src='/images/starship.png' />
+          <FavoriteIcon onClick={handleFavoriteClick}>
+            {isFavorite ? (
+              <img src={fullHeartIcon} />
+            ) : (
+              <img src={emptyHeartIcon} />
+            )}
+          </FavoriteIcon>
+        </StarshipCardImage>
+      </StarshipCardContainer>
+      <NotesTextbox placeholder='Add text' />
     </Card>
   );
 }

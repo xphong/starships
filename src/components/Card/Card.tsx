@@ -7,6 +7,7 @@ interface CardProps {
 
 const StyledCard = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   background: #232524;
   padding: 24px;
