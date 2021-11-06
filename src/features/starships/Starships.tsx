@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {
   getStarshipsByPage,
@@ -31,7 +31,7 @@ function Starship(): React.ReactElement {
 
   useEffect(() => {
     void dispatch(getStarshipsByPage());
-  }, []);
+  }, [dispatch]);
 
   if (isLoadingStarships) {
     return <div>Loading...</div>

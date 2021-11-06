@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 interface ButtonProps {
   children?: React.ReactNode
-  variant: Variant
+  variant?: Variant
   disabled?: boolean
   onClick?: () => void
 };

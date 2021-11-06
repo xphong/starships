@@ -13,7 +13,7 @@ export default function NavBar(): React.ReactElement {
   return (
     <Nav>
       <Link to="/">
-        <img src='/images/home_logo.png' />
+        <img src='/images/home_logo.png' alt='Starship Logo' />
       </Link>
       <Link to="/favorites">
         <Button>View Favorites</Button>

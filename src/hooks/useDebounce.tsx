@@ -10,7 +10,7 @@ const useDebounce = <F extends (...args: any) => any>(
 
   useEffect(() => {
     savedFunc.current = func;
-  }, [waitFor]);
+  }, [func, waitFor]);
 
   return useCallback((...args: any) => {
     if (timer.current) {
@@ -19,7 +19,7 @@ const useDebounce = <F extends (...args: any) => any>(
     }
 
     timer.current = setTimeout(() => savedFunc.current?.(...args), waitFor);
-  }, []) as (...args: Parameters<F>) => ReturnType<F>;
+  }, [waitFor]) as (...args: Parameters<F>) => ReturnType<F>;
 };
 
 export default useDebounce;

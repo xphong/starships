@@ -112,12 +112,12 @@ export default function StarshipCard({ starship, variant = Variant.primary }: St
           <span>{starship.passengers}</span>
         </StarshipCardInfo>
         <StarshipCardImage>
-          <img src='/images/starship.png' />
+          <img src='/images/starship.png' alt='Starship stock image' />
           <FavoriteIcon onClick={handleFavoriteClick}>
             {isFavorite ? (
-              <img src={fullHeartIcon} />
+              <img src={fullHeartIcon} alt='Favorite icon when favorited' />
             ) : (
-              <img src={emptyHeartIcon} />
+              <img src={emptyHeartIcon} alt='Favorite icon when not favorited' />
             )}
           </FavoriteIcon>
         </StarshipCardImage>
