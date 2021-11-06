@@ -13,6 +13,7 @@ import {
   updateFavoriteStarshipNote,
 } from '../../features/favoriteStarships/favoriteStarshipsSlice';
 import useDebounce from '../../hooks/useDebounce'
+import Rating from '../Rating/Rating'
 
 export enum Variant {
   primary = 'primary',
@@ -33,6 +34,7 @@ const StarshipCardInfo = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+  justify-content: space-between;
 `;
 
 const StarshipCardImage = styled.div`
@@ -108,11 +110,11 @@ export default function StarshipCard({ starship, variant = Variant.primary }: St
         <StarshipCardInfo>
           <h3>{starship.name}</h3>
           <span>{starship.manufacturer}</span>
-          <div>{starship.hyperdrive_rating}</div>
+          {starship.hyperdrive_rating && <Rating rating={Number(starship.hyperdrive_rating)} />}
           <span>{starship.passengers}</span>
         </StarshipCardInfo>
         <StarshipCardImage>
-          <img src='/images/starship.png' alt='Starship stock image' />
+          <img src='/images/starship.png' alt='Starship' />
           <FavoriteIcon onClick={handleFavoriteClick}>
             {isFavorite ? (
               <img src={fullHeartIcon} alt='Favorite icon when favorited' />
