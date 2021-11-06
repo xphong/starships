@@ -8,6 +8,7 @@ import {
 } from './starshipsSlice';
 import styled from 'styled-components';
 import emptyHeartIcon from '../../assets/icons/empty_heart.svg';
+import Button, { Variant } from '../../components/Button/Button'
 
 const ListContainer = styled.div`
   display: grid;
@@ -69,24 +70,34 @@ function Starship(): React.ReactElement {
   }
 
   return (
-    <ListContainer>
-      {starships?.length > 0 ? starships.map(starship => (
-        <Card>
-          <CardInfo>
-            <h3>{starship.name}</h3>
-            <span>{starship.manufacturer}</span>
-            <div>{starship.hyperdrive_rating}</div>
-            <span>{starship.passengers}</span>
-          </CardInfo>
-          <CardImage>
-            <img src='/images/starship.png' />
-            <FavoriteIcon>
-              <img src={emptyHeartIcon} />
-            </FavoriteIcon>
-          </CardImage>
-        </Card>
-      )) : 'No starships found!'}
-    </ListContainer>
+    <>
+      <ListContainer>
+        {starships?.length > 0 ? (
+          starships.map(starship => (
+            <Card>
+              <CardInfo>
+                <h3>{starship.name}</h3>
+                <span>{starship.manufacturer}</span>
+                <div>{starship.hyperdrive_rating}</div>
+                <span>{starship.passengers}</span>
+              </CardInfo>
+              <CardImage>
+                <img src='/images/starship.png' />
+                <FavoriteIcon>
+                  <img src={emptyHeartIcon} />
+                </FavoriteIcon>
+              </CardImage>
+            </Card>
+          ))
+        ) : 'No starships found!'}
+      </ListContainer>
+      <Button variant={Variant.secondary} disabled>
+        Previous Page
+      </Button>
+      <Button variant={Variant.secondary}>
+        Next Page
+      </Button>
+    </>
   );
 }
 

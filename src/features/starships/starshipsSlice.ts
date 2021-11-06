@@ -7,12 +7,12 @@ export interface Starship {
   manufacturer: string;
   hyperdrive_rating: string;
   passengers: string;
-}
+};
 
 export interface StarshipsState {
   data: Starship[];
   status: 'idle' | 'loading' | 'failed';
-}
+};
 
 const initialState: StarshipsState = {
   data: [],
