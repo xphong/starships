@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {
-  getStarships,
+  getStarshipsByPage,
   selectStarships,
   selectStarshipsLoading,
   selectStarshipsError,
@@ -65,7 +65,7 @@ function Starship(): React.ReactElement {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    void dispatch(getStarships());
+    void dispatch(getStarshipsByPage());
   }, []);
 
   if (isLoadingStarships) {
@@ -79,7 +79,7 @@ function Starship(): React.ReactElement {
   return (
     <>
       <ListContainer>
-        {starships?.length > 0 ? (
+        {starships.length > 0 ? (
           starships.map(starship => (
             <Card>
               <CardInfo>

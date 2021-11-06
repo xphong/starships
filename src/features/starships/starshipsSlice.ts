@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
-import { fetchStarships, fetchStarshipsByPage } from './starshipsAPI';
+import { fetchStarshipsByPage } from './starshipsAPI';
 
 export interface Starship {
   name: string;
@@ -9,29 +9,31 @@ export interface Starship {
   passengers: string;
 };
 
+export interface StarshipResponse {
+  count: number;
+  next?: string;
+  previous?: string;
+  results: Starship[];
+}
+
 export interface StarshipsState {
-  data: Starship[];
+  data: StarshipResponse;
   status: 'idle' | 'loading' | 'failed';
 };
 
 const initialState: StarshipsState = {
-  data: [],
+  data: {
+    count: 0,
+    results: [],
+  },
   status: 'idle',
 };
 
-export const getStarships = createAsyncThunk(
-  'starships/fetch',
-  async (): Promise<Starship[]> => {
-    const response = await fetchStarships();
-    return response.results;
-  }
-);
-
 export const getStarshipsByPage = createAsyncThunk(
   'starships/fetchByPage',
-  async (url: string): Promise<Starship[]> => {
+  async (url?: string): Promise<StarshipResponse> => {
     const response = await fetchStarshipsByPage(url);
-    return response.results;
+    return response;
   }
 );
 
@@ -41,16 +43,6 @@ export const starshipsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getStarships.rejected, (state) => {
-        state.status = 'failed';
-      })
-      .addCase(getStarships.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(getStarships.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.data = action.payload;
-      })
       .addCase(getStarshipsByPage.rejected, (state) => {
         state.status = 'failed';
       })
@@ -64,7 +56,9 @@ export const starshipsSlice = createSlice({
   },
 });
 
-export const selectStarships = (state: RootState) => state.starships.data;
+export const selectStarships = (state: RootState) => state.starships.data.results;
+export const selectStarshipsPrevious = (state: RootState) => state.starships.data?.previous;
+export const selectStarshipsNext = (state: RootState) => state.starships.data?.next;
 export const selectStarshipsLoading = (state: RootState) => state.starships.status === 'loading';
 export const selectStarshipsError = (state: RootState) => state.starships.status === 'failed';
 
