@@ -11,8 +11,14 @@ import {
   selectFavoriteStarships,
 } from '../../features/favoriteStarships/favoriteStarshipsSlice';
 
+export enum Variant {
+  primary = 'primary',
+  favorite = 'favorite',
+};
+
 interface StarshipCardProps {
-  starship: Starship
+  starship: Starship;
+  variant?: Variant;
 };
 
 const StarshipCardContainer = styled.div`
@@ -59,7 +65,7 @@ const NotesTextbox = styled.textarea`
   line-height: 21px;
 `
 
-export default function StarshipCard({ starship }: StarshipCardProps): React.ReactElement {
+export default function StarshipCard({ starship, variant = Variant.primary }: StarshipCardProps): React.ReactElement {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const favoriteStarships = useAppSelector(selectFavoriteStarships);
   const dispatch = useAppDispatch();
@@ -100,7 +106,7 @@ export default function StarshipCard({ starship }: StarshipCardProps): React.Rea
           </FavoriteIcon>
         </StarshipCardImage>
       </StarshipCardContainer>
-      <NotesTextbox placeholder='Add text' />
+      {variant === Variant.favorite && <NotesTextbox placeholder='Add text' />}
     </Card>
   );
 }

@@ -4,7 +4,7 @@ import {
   selectFavoriteStarships
 } from './favoriteStarshipsSlice';
 import ListContainer from '../../components/ListContainer/ListContainer';
-import StarshipCard from '../../components/StarshipCard/StarshipCard';
+import StarshipCard, { Variant } from '../../components/StarshipCard/StarshipCard';
 
 function FavoriteStarships(): React.ReactElement {
   const favoriteStarships = useAppSelector(selectFavoriteStarships);
@@ -14,7 +14,7 @@ function FavoriteStarships(): React.ReactElement {
       <ListContainer>
         {favoriteStarships.length > 0 ? (
           favoriteStarships.map(favoriteStarships => (
-            <StarshipCard key={favoriteStarships.name} starship={favoriteStarships} />
+            <StarshipCard key={favoriteStarships.name} starship={favoriteStarships} variant={Variant.favorite} />
           ))
         ) : 'No favorite starships found!'}
       </ListContainer>
