@@ -2,8 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Starship } from '../starships/starshipsSlice'
 
+export interface StarshipNote {
+  note?: string;
+}
+
+export type FavoriteStarship = Starship & StarshipNote;
+
 export interface StarshipsState {
-  data: Starship[];
+  data: FavoriteStarship[];
 };
 
 const initialState: StarshipsState = {
@@ -19,6 +25,14 @@ export const starshipsSlice = createSlice({
     },
     removeFavoriteStarship: (state, action: PayloadAction<string>) => {
       state.data = state.data.filter(starship => starship.name !== action.payload);
+    },
+    updateFavoriteStarshipNote: (state, action: PayloadAction<FavoriteStarship>) => {
+      state.data = state.data.map(starship => {
+        if (starship.name === action.payload.name) {
+          return { ...starship, note: action.payload.note };
+        }
+        return starship;
+      });
     },
   },
 });
