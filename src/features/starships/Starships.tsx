@@ -1,6 +1,5 @@
 import React from 'react';
 import useStarships from './useStarships';
-import Button, { Variant } from '../../components/Button/Button';
 import ListContainer from '../../components/ListContainer/ListContainer';
 import StarshipCard from '../../components/StarshipCard/StarshipCard';
 import Pagination from '../../components/Pagination/Pagination';
