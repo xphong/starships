@@ -73,7 +73,7 @@ describe('favoriteStarships reducer', () => {
   });
 });
 
-describe('favoriteStarships selector', () => {
+describe('favoriteStarships selectors', () => {
   it('should retrieve list of favorite starships', () => {
     expect(selectFavoriteStarships(mockState)).toEqual([mockStarship]);
   })
