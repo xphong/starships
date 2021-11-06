@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import styled from 'styled-components';
 import Card from '../Card/Card';
 import emptyHeartIcon from '../../assets/icons/empty_heart.svg';
+import fullHeartIcon from '../../assets/icons/full_heart.svg';
 import { Starship } from '../../features/starships/starshipsSlice';
+import {
+  addFavoriteStarship,
+  removeFavoriteStarship,
+  selectFavoriteStarships,
+} from '../../features/favoriteStarships/favoriteStarshipsSlice';
 
 interface StarshipCardProps {
   starship: Starship
@@ -32,6 +39,26 @@ const FavoriteIcon = styled.div`
 `;
 
 export default function StarshipCard({ starship }: StarshipCardProps): React.ReactElement {
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const favoriteStarships = useAppSelector(selectFavoriteStarships);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (favoriteStarships.find((favoriteStarship) => favoriteStarship.name === starship.name)) {
+      setIsFavorite(true);
+    }
+  }, [favoriteStarships, starship]);
+
+  const handleFavoriteClick = (): void => {
+    if (isFavorite) {
+      dispatch(removeFavoriteStarship(starship.name));
+    } else {
+      dispatch(addFavoriteStarship(starship));
+    }
+
+    setIsFavorite(!isFavorite)
+  }
+
   return (
     <Card>
       <StarshipCardInfo>
@@ -42,8 +69,12 @@ export default function StarshipCard({ starship }: StarshipCardProps): React.Rea
       </StarshipCardInfo>
       <StarshipCardImage>
         <img src='/images/starship.png' />
-        <FavoriteIcon>
-          <img src={emptyHeartIcon} />
+        <FavoriteIcon onClick={handleFavoriteClick}>
+          {isFavorite ? (
+            <img src={fullHeartIcon} />
+          ) : (
+            <img src={emptyHeartIcon} />
+          )}
         </FavoriteIcon>
       </StarshipCardImage>
     </Card>
