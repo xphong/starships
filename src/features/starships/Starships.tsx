@@ -1,13 +1,5 @@
-import React, { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import {
-  getStarshipsByPage,
-  selectStarships,
-  selectStarshipsLoading,
-  selectStarshipsError,
-  selectStarshipsPrevious,
-  selectStarshipsNext,
-} from './starshipsSlice';
+import React from 'react';
+import useStarships from './useStarships';
 import styled from 'styled-components';
 import Button, { Variant } from '../../components/Button/Button';
 import ListContainer from '../../components/ListContainer/ListContainer';
@@ -22,16 +14,14 @@ const PaginationContainer = styled.div`
 `
 
 function Starship(): React.ReactElement {
-  const starships = useAppSelector(selectStarships);
-  const isLoadingStarships = useAppSelector(selectStarshipsLoading);
-  const isErrorStarships = useAppSelector(selectStarshipsError);
-  const previousStarships = useAppSelector(selectStarshipsPrevious);
-  const nextStarships = useAppSelector(selectStarshipsNext);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    void dispatch(getStarshipsByPage());
-  }, [dispatch]);
+  const {
+    starships,
+    isLoadingStarships,
+    isErrorStarships,
+    previousStarships,
+    nextStarships,
+    dispatchGetStarshipsByPage,
+  } = useStarships();
 
   if (isLoadingStarships) {
     return <div>Loading...</div>
@@ -54,14 +44,14 @@ function Starship(): React.ReactElement {
         <Button
           variant={Variant.secondary}
           disabled={!previousStarships}
-          onClick={() => void dispatch(getStarshipsByPage(previousStarships))}
+          onClick={() => dispatchGetStarshipsByPage(previousStarships)}
         >
           Previous Page
         </Button>
         <Button
           variant={Variant.secondary}
           disabled={!nextStarships}
-          onClick={() => void dispatch(getStarshipsByPage(nextStarships))}
+          onClick={() => dispatchGetStarshipsByPage(nextStarships)}
         >
           Next Page
         </Button>
