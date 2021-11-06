@@ -51,6 +51,13 @@ const FavoriteIcon = styled.div`
   cursor: pointer;
 `
 
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+`
+
 function Starship(): React.ReactElement {
   const starships = useAppSelector(selectStarships);
   const isLoadingStarships = useAppSelector(selectStarshipsLoading);
@@ -91,12 +98,14 @@ function Starship(): React.ReactElement {
           ))
         ) : 'No starships found!'}
       </ListContainer>
-      <Button variant={Variant.secondary} disabled>
-        Previous Page
-      </Button>
-      <Button variant={Variant.secondary}>
-        Next Page
-      </Button>
+      <PaginationContainer>
+        <Button variant={Variant.secondary} disabled>
+          Previous Page
+        </Button>
+        <Button variant={Variant.secondary}>
+          Next Page
+        </Button>
+      </PaginationContainer>
     </>
   );
 }

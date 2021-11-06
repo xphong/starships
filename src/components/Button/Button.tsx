@@ -17,12 +17,13 @@ const variantOptions = {
     fontSize: '24px',
     color: '#FF6871',
     background: '#212423',
-
+    padding: ' 10px',
   },
   secondary: {
     fontSize: '12px',
     color: '#FFFFFF',
-    background: '#232524'
+    background: '#232524',
+    padding: '5px 10px',
   },
 };
 
@@ -37,7 +38,6 @@ const StyledButton = styled.button<ButtonProps>`
   line-height: 28px;
   text-align: center;
   cursor: pointer;
-  padding: 10px;
 
   ${({ variant }) =>
     variant &&
@@ -46,6 +46,7 @@ const StyledButton = styled.button<ButtonProps>`
      font-size: ${variantOptions[variant].fontSize};
      color: ${variantOptions[variant].color};
      background: ${variantOptions[variant].background};
+     padding: ${variantOptions[variant].padding};
  `}
 
   ${({ disabled }) =>
