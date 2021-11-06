@@ -5,6 +5,7 @@ import {
   selectStarships,
 } from './starshipsSlice';
 import styled from 'styled-components';
+import emptyHeartIcon from '../../assets/icons/empty_heart.svg';
 
 const ListContainer = styled.div`
   display: grid;
@@ -33,6 +34,19 @@ const CardImage = styled.div`
   position: relative;
 `
 
+const FavouriteIcon = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #212423;
+  border-radius: 50%;
+  height: 44px;
+  width: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 function Starship(): React.ReactElement {
   const starships = useAppSelector(selectStarships);
   const dispatch = useAppDispatch();
@@ -53,6 +67,9 @@ function Starship(): React.ReactElement {
           </CardInfo>
           <CardImage>
             <img src='/images/starship.png' />
+            <FavouriteIcon>
+              <img src={emptyHeartIcon} />
+            </FavouriteIcon>
           </CardImage>
         </Card>
       ))}
