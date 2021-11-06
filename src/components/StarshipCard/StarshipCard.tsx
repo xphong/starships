@@ -41,6 +41,19 @@ const StarshipCardImage = styled.div`
   position: relative;
 `;
 
+const StarshipHeading = styled.h2`
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+`
+
+const StarshipText = styled.p`
+  font-family: Helvetica;
+  font-size: 18px;
+  line-height: 21px;
+`
+
 const FavoriteIcon = styled.div`
   position: absolute;
   top: 10px;
@@ -108,10 +121,10 @@ export default function StarshipCard({ starship, variant = Variant.primary }: St
     <Card>
       <StarshipCardContainer>
         <StarshipCardInfo>
-          <h3>{starship.name}</h3>
-          <span>{starship.manufacturer}</span>
+          <StarshipHeading>{starship.name}</StarshipHeading>
+          <StarshipText>{starship.manufacturer}</StarshipText>
           {starship.hyperdrive_rating && <Rating rating={Number(starship.hyperdrive_rating)} />}
-          <span>{starship.passengers}</span>
+          <StarshipText>Passengers: {starship.passengers}</StarshipText>
         </StarshipCardInfo>
         <StarshipCardImage>
           <img src='/images/starship.png' alt='Starship' />

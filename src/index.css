@@ -1,7 +1,8 @@
 body {
   margin: 0;
   font-family: Helvetica;
-  font-weight: bold;
+  font-style: normal;
+  font-weight: normal;
   color: #FFFFFF;
   background: #000408;
   min-height: 100vh;
