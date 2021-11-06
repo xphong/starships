@@ -8,11 +8,11 @@ export interface StarshipNote {
 
 export type FavoriteStarship = Starship & StarshipNote;
 
-export interface StarshipsState {
+export interface FavoriteStarshipsState {
   data: FavoriteStarship[];
 };
 
-const initialState: StarshipsState = {
+const initialState: FavoriteStarshipsState = {
   data: [],
 };
 
