@@ -34,7 +34,7 @@ const StarshipCardInfo = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  justify-content: space-between;
+  justify-content: space-evenly;
 `;
 
 const StarshipCardImage = styled.div`
@@ -52,6 +52,7 @@ const StarshipText = styled.p`
   font-family: Helvetica;
   font-size: 18px;
   line-height: 21px;
+  margin: 0;
 `
 
 const FavoriteIcon = styled.div`
