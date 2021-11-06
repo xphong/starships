@@ -5,6 +5,7 @@ interface ButtonProps {
   children?: React.ReactNode
   variant: Variant
   disabled?: boolean
+  onClick?: () => void
 };
 
 export enum Variant {
@@ -57,9 +58,9 @@ const StyledButton = styled.button<ButtonProps>`
   `}
 `;
 
-export default function Button({ children, variant = Variant.primary, disabled }: ButtonProps): React.ReactElement {
+export default function Button({ children, variant = Variant.primary, disabled, onClick }: ButtonProps): React.ReactElement {
   return (
-    <StyledButton variant={variant} disabled={disabled}>
+    <StyledButton variant={variant} disabled={disabled} onClick={onClick}>
       {children}
     </StyledButton>
   );

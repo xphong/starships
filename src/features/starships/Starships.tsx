@@ -5,6 +5,8 @@ import {
   selectStarships,
   selectStarshipsLoading,
   selectStarshipsError,
+  selectStarshipsPrevious,
+  selectStarshipsNext,
 } from './starshipsSlice';
 import styled from 'styled-components';
 import emptyHeartIcon from '../../assets/icons/empty_heart.svg';
@@ -53,15 +55,18 @@ const FavoriteIcon = styled.div`
 
 const PaginationContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  margin: 30px 0;
+  margin: 30px auto;
+  width: 200px;
 `
 
 function Starship(): React.ReactElement {
   const starships = useAppSelector(selectStarships);
   const isLoadingStarships = useAppSelector(selectStarshipsLoading);
   const isErrorStarships = useAppSelector(selectStarshipsError);
+  const previousStarships = useAppSelector(selectStarshipsPrevious);
+  const nextStarships = useAppSelector(selectStarshipsNext);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -99,10 +104,18 @@ function Starship(): React.ReactElement {
         ) : 'No starships found!'}
       </ListContainer>
       <PaginationContainer>
-        <Button variant={Variant.secondary} disabled>
+        <Button
+          variant={Variant.secondary}
+          disabled={!previousStarships}
+          onClick={() => void dispatch(getStarshipsByPage(previousStarships))}
+        >
           Previous Page
         </Button>
-        <Button variant={Variant.secondary}>
+        <Button
+          variant={Variant.secondary}
+          disabled={!nextStarships}
+          onClick={() => void dispatch(getStarshipsByPage(nextStarships))}
+        >
           Next Page
         </Button>
       </PaginationContainer>
