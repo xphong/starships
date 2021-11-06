@@ -34,7 +34,7 @@ const mockState = {
   }
 };
 
-describe('favoriteStarships reducer', () => {
+describe('starships reducer', () => {
   const initialState: StarshipsState = {
     data: {
       count: 0,
@@ -83,7 +83,7 @@ describe('favoriteStarships reducer', () => {
   });
 });
 
-describe('favoriteStarships selectors', () => {
+describe('starships selectors', () => {
   it('should retrieve list of starships', () => {
     expect(selectStarships(mockState)).toEqual([mockStarship]);
   })
