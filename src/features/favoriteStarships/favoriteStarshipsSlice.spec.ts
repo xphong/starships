@@ -13,6 +13,23 @@ const mockStarship = {
   passengers: '75',
 };
 
+const mockState = {
+  starships: {
+    data: {
+      count: 0,
+      results: [
+        mockStarship
+      ],
+    },
+    status: 'idle' as const,
+  },
+  favoriteStarships: {
+    data: [
+      mockStarship,
+    ]
+  }
+};
+
 describe('favoriteStarships reducer', () => {
   const initialState: FavoriteStarshipsState = {
     data: []
@@ -25,51 +42,39 @@ describe('favoriteStarships reducer', () => {
   });
 
   it('should handle addFavoriteStarship', () => {
-    favoriteStarshipsReducer(initialState, addFavoriteStarship(mockStarship));
+    const actual = favoriteStarshipsReducer(initialState, addFavoriteStarship(mockStarship));
 
-    expect.arrayContaining([mockStarship]);
+    expect(actual.data).toEqual(expect.arrayContaining([mockStarship]));
   });
 
   it('should handle removeFavoriteStarship', () => {
     favoriteStarshipsReducer(initialState, addFavoriteStarship(mockStarship));
-    favoriteStarshipsReducer(initialState, removeFavoriteStarship(mockStarship.name));
+    const actual = favoriteStarshipsReducer(initialState, removeFavoriteStarship(mockStarship.name));
 
-    expect.not.arrayContaining([mockStarship]);
+    expect(actual.data).toEqual(expect.not.arrayContaining([mockStarship]));
   });
 
   it('should handle updateFavoriteStarshipNote', () => {
-    favoriteStarshipsReducer(initialState, addFavoriteStarship(mockStarship));
     const note = `Phong's favorite starship`;
     const favoriteStarship = {
       ...mockStarship,
       note,
     };
 
-    favoriteStarshipsReducer(initialState, updateFavoriteStarshipNote(favoriteStarship));
+    const favoriteStarshipsState = {
+      data: [
+        mockStarship,
+      ]
+    }
 
-    expect.arrayContaining([favoriteStarship]);
+    const actual = favoriteStarshipsReducer(favoriteStarshipsState, updateFavoriteStarshipNote(favoriteStarship));
+
+    expect(actual.data).toEqual(expect.arrayContaining([favoriteStarship]));
   });
 });
 
 describe('favoriteStarships selector', () => {
   it('should retrieve list of favorite starships', () => {
-    const mockState = {
-      starships: {
-        data: {
-          count: 0,
-          results: [
-            mockStarship
-          ],
-        },
-        status: 'idle' as const,
-      },
-      favoriteStarships: {
-        data: [
-          mockStarship,
-        ]
-      }
-    }
-
     expect(selectFavoriteStarships(mockState)).toEqual([mockStarship]);
   })
 })
