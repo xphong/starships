@@ -47,6 +47,7 @@ const FavoriteIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `
 
 function Starship(): React.ReactElement {
@@ -57,7 +58,7 @@ function Starship(): React.ReactElement {
 
   useEffect(() => {
     void dispatch(getStarships());
-  }, [])
+  }, []);
 
   if (isLoadingStarships) {
     return <div>Loading...</div>
