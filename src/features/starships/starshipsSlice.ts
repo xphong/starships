@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
-import { fetchStarships } from './starshipsAPI';
+import { fetchStarships, fetchStarshipsByPage } from './starshipsAPI';
 
 export interface Starship {
   name: string;
@@ -21,8 +21,16 @@ const initialState: StarshipsState = {
 
 export const getStarships = createAsyncThunk(
   'starships/fetch',
-  async () => {
+  async (): Promise<Starship[]> => {
     const response = await fetchStarships();
+    return response.results;
+  }
+);
+
+export const getStarshipsByPage = createAsyncThunk(
+  'starships/fetchByPage',
+  async (url: string): Promise<Starship[]> => {
+    const response = await fetchStarshipsByPage(url);
     return response.results;
   }
 );
@@ -40,6 +48,16 @@ export const starshipsSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(getStarships.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.data = action.payload;
+      })
+      .addCase(getStarshipsByPage.rejected, (state) => {
+        state.status = 'failed';
+      })
+      .addCase(getStarshipsByPage.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getStarshipsByPage.fulfilled, (state, action) => {
         state.status = 'idle';
         state.data = action.payload;
       });
