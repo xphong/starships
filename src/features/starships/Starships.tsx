@@ -9,49 +9,9 @@ import {
   selectStarshipsNext,
 } from './starshipsSlice';
 import styled from 'styled-components';
-import emptyHeartIcon from '../../assets/icons/empty_heart.svg';
-import Button, { Variant } from '../../components/Button/Button'
-
-const ListContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 32px;
-
-  @media only screen and (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-`
-
-const Card = styled.div`
-  display: flex;
-  justify-content: space-between;
-  background: #232524;
-  padding: 24px;
-  border-radius: 15px;
-`
-
-const CardInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-const CardImage = styled.div`
-  position: relative;
-`
-
-const FavoriteIcon = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #212423;
-  border-radius: 50%;
-  height: 44px;
-  width: 44px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-`
+import Button, { Variant } from '../../components/Button/Button';
+import ListContainer from '../../components/ListContainer/ListContainer';
+import StarshipCard from '../../components/StarshipCard/StarshipCard';
 
 const PaginationContainer = styled.div`
   display: flex;
@@ -86,20 +46,7 @@ function Starship(): React.ReactElement {
       <ListContainer>
         {starships.length > 0 ? (
           starships.map(starship => (
-            <Card>
-              <CardInfo>
-                <h3>{starship.name}</h3>
-                <span>{starship.manufacturer}</span>
-                <div>{starship.hyperdrive_rating}</div>
-                <span>{starship.passengers}</span>
-              </CardInfo>
-              <CardImage>
-                <img src='/images/starship.png' />
-                <FavoriteIcon>
-                  <img src={emptyHeartIcon} />
-                </FavoriteIcon>
-              </CardImage>
-            </Card>
+            <StarshipCard key={starship.name} starship={starship} />
           ))
         ) : 'No starships found!'}
       </ListContainer>
