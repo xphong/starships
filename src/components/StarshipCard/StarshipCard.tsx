@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Card from '../Card/Card';
 import emptyHeartIcon from '../../assets/icons/empty_heart.svg';
 import fullHeartIcon from '../../assets/icons/full_heart.svg';
@@ -28,6 +28,7 @@ interface StarshipCardProps {
 const StarshipCardContainer = styled.div`
   display: flex;
   flex-direction: row;
+  animation: fadeInAnimation 1s linear;
 `
 
 const StarshipCardInfo = styled.div`
