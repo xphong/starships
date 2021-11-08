@@ -28,8 +28,8 @@ interface StarshipCardProps {
 const StarshipCardContainer = styled.div`
   display: flex;
   flex-direction: row;
-  animation: fadeInAnimation 1s linear;
-`
+  animation: fadeInAnimation .5s ease-in;
+`;
 
 const StarshipCardInfo = styled.div`
   display: flex;
@@ -47,14 +47,14 @@ const StarshipHeading = styled.h2`
   font-weight: bold;
   font-size: 24px;
   line-height: 28px;
-`
+`;
 
 const StarshipText = styled.p`
   font-family: Helvetica;
   font-size: 18px;
   line-height: 21px;
   margin: 0;
-`
+`;
 
 const FavoriteIcon = styled.div`
   position: absolute;
@@ -70,9 +70,39 @@ const FavoriteIcon = styled.div`
   cursor: pointer;
 `;
 
+const heartBeat = keyframes`
+  0%
+  {
+    transform: scale( .75 );
+  }
+  20%
+  {
+    transform: scale( 1.1 );
+  }
+  40%
+  {
+    transform: scale( .75 );
+  }
+  60%
+  {
+    transform: scale( 1.1 );
+  }
+  80%
+  {
+    transform: scale( .75 );
+  }
+  100%
+  {
+    transform: scale( 1 );
+  }
+`;
+
+const FavoriteIconImage = styled.img<{ isFavorite: boolean }>`
+  animation: ${({ isFavorite }) => isFavorite && heartBeat} 1s ease-in-out;
+`
+
 const NotesTextbox = styled.textarea`
   border: 1px solid #D9D9D9;
-  box-sizing: border-box;
   border-radius: 10px;
   cursor: text;
   margin-top: 10px;
@@ -83,7 +113,7 @@ const NotesTextbox = styled.textarea`
   font-weight: 300;
   font-size: 18px;
   line-height: 21px;
-`
+`;
 
 export default function StarshipCard({ starship, variant = Variant.primary }: StarshipCardProps): React.ReactElement {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -132,9 +162,9 @@ export default function StarshipCard({ starship, variant = Variant.primary }: St
           <img src='/images/starship.png' alt='Starship' />
           <FavoriteIcon onClick={handleFavoriteClick}>
             {isFavorite ? (
-              <img src={fullHeartIcon} alt='Favorite icon when favorited' />
+              <FavoriteIconImage isFavorite={isFavorite} src={fullHeartIcon} alt='Favorite icon when favorited' />
             ) : (
-              <img src={emptyHeartIcon} alt='Favorite icon when not favorited' />
+              <FavoriteIconImage isFavorite={isFavorite} src={emptyHeartIcon} alt='Favorite icon when not favorited' />
             )}
           </FavoriteIcon>
         </StarshipCardImage>
